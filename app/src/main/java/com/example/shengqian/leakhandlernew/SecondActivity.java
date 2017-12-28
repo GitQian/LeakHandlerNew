@@ -16,12 +16,22 @@ public class SecondActivity extends AppCompatActivity {
         setContentView(R.layout.activity_second);
 
         mHelloTv = (TextView) findViewById(R.id.tv_hello);
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //Handler将会一直持有Activity的引用！
-                mHelloTv.setText("十年后..");
-            }
-        }, 160000);
+        mHandler.postDelayed(new DoRunAble(mHelloTv), 160000);
+    }
+
+    /**
+     * 静态内部类
+     */
+    private static class DoRunAble implements Runnable {
+        private TextView mTextView;
+
+        public DoRunAble(TextView textView) {
+            mTextView = textView;
+        }
+
+        @Override
+        public void run() {
+            mTextView.setText("十年后..");
+        }
     }
 }
